@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Example : Loading Data From JSON</title>
+    
+    <script type="text/javascript">
+        function loadJSON() {   
+            /*var arr = ['A','B','C'];
+            var R = arr;
+            console.log(arr);
+            R.splice(1,1);
+            console.log(arr);
+            console.log(R);
+            return;*/
+            var xobj = new XMLHttpRequest();
+            xobj.overrideMimeType("application/json");
+            xobj.open('GET', 'myInfo.json', false); // Replace 'my_data' with the path to your file
+            xobj.onreadystatechange = function () {
+                  if (xobj.readyState == 4) {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                    updateHTML(xobj.responseText);
+                  }
+            };
+            xobj.send(null);  
+         }
+        
+        function updateHTML(response){
+            var jsonObj = JSON.parse(response);
+            console.log('jsonObj = ',jsonObj);
+            document.getElementById('fName').innerHTML = jsonObj.name;
+            document.getElementById('occupation').innerHTML = jsonObj.occupation;
+            document.getElementById('localAdd').innerHTML = jsonObj.address.local;
+            document.getElementById('permanentAdd').innerHTML = jsonObj.address.permanent;
+            
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <label>My name is : </label>
+        <span id="fName"></span>
+    </div>
+    <div>
+        <label>I am a </label>
+        <span id="occupation"></span>
+    </div>
+    <div>
+        <label>My local address is : </label>
+        <span id="localAdd"></span>
+    </div>
+    <div>
+        <label>My permanent address is : </label>
+        <span id="permanentAdd"></span>
+    </div>
+    <br>    
+    <button onclick="loadJSON()">Load Data</button>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+    "name": "Steve",
+    "occupation": "Software Engineer",
+    "address": { "local" : "Delhi",
+                 "permanent":"USA"
+               },
+    "speak": function(){
+        alert('I said something.');
+    }
+
+}
